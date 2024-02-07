@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+
+  postgres:
+    env_file: .env
+    image: postgres:12.5
+    container_name: db_tenant_container
+    restart: always
+    
+    volumes:
+      - ./respaldo:/home/respaldo
+      - ./pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    environment:
+      
+      POSTGRES_USER: ${POSTGRE_DBUSER}
+      POSTGRES_PASSWORD: ${POSTGRE_DBPSW}
+      POSTGRES_DB: ${POSTGRE_DBNAME}
+
+    ports:
+      - ${POSTGRE_DBPORT}:5432
+
+volumes:
+  pgdata:
