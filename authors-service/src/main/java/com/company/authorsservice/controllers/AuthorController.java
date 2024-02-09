@@ -1,6 +1,9 @@
 package com.company.authorsservice.controllers;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +14,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.company.authorsservice.domain.entities.Author;
+import com.company.authorsservice.domain.entities.Movies;
 import com.company.authorsservice.domain.usecases.CreateOrUpdateAuthorUseCase;
 import com.company.authorsservice.domain.usecases.GetAllAuthorsUseCase;
+import com.company.authorsservice.domain.usecases.GetAuthorByIdUseCase;
 
 @RestController
 @RequestMapping(path = "/authors", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -29,6 +36,11 @@ public class AuthorController {
 	GetAllAuthorsUseCase getAllAuthors;
 	@Autowired
 	CreateOrUpdateAuthorUseCase saveAuthor;
+	
+	@Autowired
+	GetAuthorByIdUseCase  getAuthorById;
+	@Autowired
+	RestTemplate restTemplate;
 
 	@GetMapping()
 	public ResponseEntity<Map<String, Object>> getAuthors(
@@ -40,6 +52,7 @@ public class AuthorController {
 		try {
 			Pageable pagingSort = PageRequest.of(page, size, Sort.by("authorName"));
 			authorsPaginated = getAllAuthors.execute(pagingSort);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,6 +60,29 @@ public class AuthorController {
 	}
 	
 	
+	/*
+	@GetMapping(value = "/{authorId}")
+	public ResponseEntity<Author> getAuthorById(@PathVariable("authorId") Long authorId) {
+		
+		Author author= new Author();
+		try {
+			author = getAuthorById.execute(authorId);
+			
+			
+			Movies[] movies = restTemplate.getForObject("http://movie-servicemovies/movies/${authorId}", Movies[].class);
+			List<Movies> movieList = Arrays.asList(movies);
+			
+			author.setMovies(movieList);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(author, HttpStatus.OK);
+	}*/
+	
+	
+
 
 	@PostMapping(path = "/create-update", 
 	        consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -54,6 +90,7 @@ public class AuthorController {
 		Author authorResponse = new Author();;
 		try {
 			authorResponse = saveAuthor.execute(author);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

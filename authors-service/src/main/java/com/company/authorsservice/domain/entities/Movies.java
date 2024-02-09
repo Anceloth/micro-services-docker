@@ -2,49 +2,52 @@ package com.company.authorsservice.domain.entities;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "movie")
 public class Movies {
-
+	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long movieId;
+	@Column(name = "movie_name")
     private String movieName;
+	@Column(name = "movie_year")
     private Date movieYear;
-    @ManyToOne
-    @JoinColumn(name="author_id")
-    private Author author;
-    
+	@Column(name = "author_id")
+	private Long authorId;
+	
     public Movies() {
 	}
     
-	public Movies(Long movieId, String movieName, Date movieYear, Author author) {
+	@Override
+	public String toString() {
+		return "Movies [movieId=" + movieId + ", movieName=" + movieName + ", movieYear=" + movieYear + ", authorId="
+				+ authorId + "]";
+	}
+
+	public Movies(Long movieId, String movieName, Date movieYear, Long authorId) {
 		super();
 		this.movieId = movieId;
 		this.movieName = movieName;
 		this.movieYear = movieYear;
-		this.author = author;
-	}
-
-	@Override
-	public String toString() {
-		return "Movies [movieId=" + movieId + ", movieName=" + movieName + ", movieYear=" + movieYear + ", author="
-				+ author + "]";
+		this.authorId = authorId;
 	}
 
 	public Long getMovieId() {
@@ -71,13 +74,11 @@ public class Movies {
 		this.movieYear = movieYear;
 	}
 
-	public Author getAuthor() {
-		return author;
+	public Long getAuthorId() {
+		return authorId;
 	}
 
-	public void setAuthor(Author author) {
-		this.author = author;
-	}
-    
-		
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
+	}		
 }

@@ -1,9 +1,15 @@
 package com.company.authorsservice.domain.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +27,17 @@ public class Author {
 	private Long authorId;
 	private String authorName;
 	
+	/*
+	@OneToMany
+	@JoinTable(
+	        name="movie",
+	        joinColumns = {@JoinColumn(referencedColumnName = "authorId")},
+	        inverseJoinColumns = {@JoinColumn(referencedColumnName = "movieId")}
+	)
+	List<Movies> movies;
+	*/
 	public Author() {
+		
 	}
 
 	public Author(Long authorId, String authorName) {
@@ -50,5 +66,7 @@ public class Author {
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
+	
+
 
 }

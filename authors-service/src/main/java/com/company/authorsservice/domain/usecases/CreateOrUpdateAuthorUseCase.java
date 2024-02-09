@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import com.company.authorsservice.domain.entities.Author;
 import com.company.authorsservice.external.AuthorRepository;
 
-@Component
+@Component()
 public class CreateOrUpdateAuthorUseCase implements UseCase<Author, Author>{
 	
 	@Autowired
