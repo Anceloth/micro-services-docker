@@ -1,4 +1,4 @@
-package com.company.authorsservice.domain.entities;
+package com.company.authorsservice.external.entities;
 
 import java.util.Date;
 

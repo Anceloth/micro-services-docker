@@ -1,6 +1,7 @@
 package com.company.authorsservice.controllers;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -20,13 +21,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.company.authorsservice.domain.entities.Author;
-import com.company.authorsservice.domain.entities.Movies;
+import com.company.authorsservice.domain.entities.AuthorDomain;
+import com.company.authorsservice.domain.entities.MoviesDomain;
+import com.company.authorsservice.domain.entities.PageableMovies;
 import com.company.authorsservice.domain.usecases.CreateOrUpdateAuthorUseCase;
 import com.company.authorsservice.domain.usecases.GetAllAuthorsUseCase;
 import com.company.authorsservice.domain.usecases.GetAuthorByIdUseCase;
+import com.company.authorsservice.external.entities.Author;
+import com.company.authorsservice.external.entities.Movies;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(path = "/authors", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,8 +45,7 @@ public class AuthorController {
 	
 	@Autowired
 	GetAuthorByIdUseCase  getAuthorById;
-	@Autowired
-	RestTemplate restTemplate;
+
 
 	@GetMapping()
 	public ResponseEntity<Map<String, Object>> getAuthors(
@@ -60,26 +65,19 @@ public class AuthorController {
 	}
 	
 	
-	/*
+	
 	@GetMapping(value = "/{authorId}")
-	public ResponseEntity<Author> getAuthorById(@PathVariable("authorId") Long authorId) {
+	public ResponseEntity<AuthorDomain> getAuthorById(@PathVariable("authorId") Long authorId) {
 		
-		Author author= new Author();
+		AuthorDomain author= new AuthorDomain();
 		try {
 			author = getAuthorById.execute(authorId);
-			
-			
-			Movies[] movies = restTemplate.getForObject("http://movie-servicemovies/movies/${authorId}", Movies[].class);
-			List<Movies> movieList = Arrays.asList(movies);
-			
-			author.setMovies(movieList);
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<>(author, HttpStatus.OK);
-	}*/
+	}
 	
 	
 

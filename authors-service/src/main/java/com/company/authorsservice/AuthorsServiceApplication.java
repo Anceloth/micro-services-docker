@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @ComponentScan(basePackages={"com.company.authorsservice.*"})
-@EntityScan("com.company.authorsservice.domain.*")  
+@EntityScan("com.company.authorsservice.external.entities")  
 //@EnableDiscoveryClient
 public class AuthorsServiceApplication {
 	

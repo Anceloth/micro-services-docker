@@ -26,7 +26,7 @@ public class GetMoviesByAuthorUseCase  implements UseCase<GetMoviesDTO, Map<Stri
 		Movies = MoviesPage.getContent();
 		
 		Map<String, Object> responsePaginated = new HashMap<>();
-		responsePaginated.put("Movies", Movies);
+		responsePaginated.put("movieList", Movies);
 		responsePaginated.put("currentPage", MoviesPage.getNumber());
 		responsePaginated.put("totalItems", MoviesPage.getTotalElements());
 		responsePaginated.put("totalPages", MoviesPage.getTotalPages());

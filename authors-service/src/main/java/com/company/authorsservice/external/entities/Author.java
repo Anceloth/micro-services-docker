@@ -1,38 +1,17 @@
-package com.company.authorsservice.domain.entities;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.company.authorsservice.external.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 public class Author {
 
 	@Id
-   // @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long authorId;
 	private String authorName;
 	
-	/*
-	@OneToMany
-	@JoinTable(
-	        name="movie",
-	        joinColumns = {@JoinColumn(referencedColumnName = "authorId")},
-	        inverseJoinColumns = {@JoinColumn(referencedColumnName = "movieId")}
-	)
-	List<Movies> movies;
-	*/
 	public Author() {
 		
 	}
@@ -51,7 +30,7 @@ public class Author {
 	public Long getAuthorId() {
 		return authorId;
 	}
-
+	   // @GeneratedValue(strategy = GenerationType.AUTO)
 	public void setAuthorId(Long authorId) {
 		this.authorId = authorId;
 	}
