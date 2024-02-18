@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @ComponentScan(basePackages={"com.company.authorsservice.*"})
 @EntityScan("com.company.authorsservice.external.entities")  
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 public class AuthorsServiceApplication {
 	
 	@Bean
